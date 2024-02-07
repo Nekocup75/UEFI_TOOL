@@ -100,9 +100,9 @@ MyGetImageInfo (
   if (ImageInfoSize == NULL) {
     return EFI_INVALID_PARAMETER;
   }
-  *ImageInfoSize = FMP_DESCRIPTOR_SIZE_V4;
 
   if (*ImageInfoSize == 0) {
+    *ImageInfoSize = FMP_DESCRIPTOR_SIZE_V4;
     return EFI_BUFFER_TOO_SMALL;
   }
   CopyMem (&ImageInfo ,&MyDescriptor, sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR));
