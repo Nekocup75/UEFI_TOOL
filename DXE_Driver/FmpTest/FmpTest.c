@@ -12,6 +12,7 @@
 #include <Library/BaseMemoryLib.h>
 #include <Guid/FmpCapsule.h>
 
+#define FMP_DESCRIPTOR_SIZE_V4  0x78
 EFI_FIRMWARE_MANAGEMENT_PROTOCOL  mTestFirmwareManagement;
 EFI_FIRMWARE_IMAGE_DESCRIPTOR     MyDescriptor;
 EFI_GUID MyFmpGuid = {0xC67C0AB3, 0x963A, 0x42FB, {0xB8,0x90,0x49, 0x3C, 0x3C, 0xB0, 0x84, 0x37}};
@@ -99,15 +100,15 @@ MyGetImageInfo (
   if (ImageInfoSize == NULL) {
     return EFI_INVALID_PARAMETER;
   }
+  *ImageInfoSize = FMP_DESCRIPTOR_SIZE_V4;
 
   if (*ImageInfoSize == 0) {
-    *ImageInfoSize = sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR);
     return EFI_BUFFER_TOO_SMALL;
   }
   CopyMem (&ImageInfo ,&MyDescriptor, sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR));
 
-  *DescriptorVersion = EFI_FIRMWARE_IMAGE_DESCRIPTOR_VERSION;
   // This design for Esrt 
+  *DescriptorVersion = EFI_FIRMWARE_IMAGE_DESCRIPTOR_VERSION;
   *DescriptorCount   = 1;
   *DescriptorSize    = sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR);
 
