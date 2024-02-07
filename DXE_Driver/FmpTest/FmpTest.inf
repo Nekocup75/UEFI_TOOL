@@ -1,0 +1,35 @@
+## @file
+#  Test flash test.bin use FMP
+#
+#  Copyright (c) 2024, Insyde Corporation. All rights reserved.<BR>
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FmpTest
+  FILE_GUID                      = 6987936E-ED34-44db-AE97-1FA5E4ECCAAA
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = FmpTestEntry
+
+
+[Sources]
+  FmpTest.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  UefiLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  DebugLib
+
+[FeaturePcd]
+
+[Protocols]
+  gEfiFirmwareManagementProtocolGuid
+
+[Depex]
+  TRUE
