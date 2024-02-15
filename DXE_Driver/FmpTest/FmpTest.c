@@ -98,19 +98,28 @@ MyGetImageInfo (
 
   // Insert Esrt need to check ImageInfoSize
   if (ImageInfoSize == NULL) {
+    DEBUG ((DEBUG_INFO, "EFI_INVALID_PARAMETER\n"));
     return EFI_INVALID_PARAMETER;
   }
 
-  if (*ImageInfoSize == 0) {
-    *ImageInfoSize = FMP_DESCRIPTOR_SIZE_V4;
+  if (*ImageInfoSize < (sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR))) {
+    *ImageInfoSize = sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR);
+    DEBUG ((DEBUG_INFO, "EFI_BUFFER_TOO_SMALL\n"));
     return EFI_BUFFER_TOO_SMALL;
   }
-  CopyMem (&ImageInfo ,&MyDescriptor, sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR));
+  *ImageInfoSize = sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR);
+
+  DEBUG((DEBUG_INFO, "MyGetImageInfo ImageInfoSize: 0x%x\n", *ImageInfoSize));
+  CopyMem (ImageInfo ,&MyDescriptor, sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR));
 
   // This design for Esrt 
   *DescriptorVersion = EFI_FIRMWARE_IMAGE_DESCRIPTOR_VERSION;
   *DescriptorCount   = 1;
   *DescriptorSize    = sizeof (EFI_FIRMWARE_IMAGE_DESCRIPTOR);
+  //
+  // means unsupported
+  //
+  *PackageVersion = 0xFFFFFFFF;
 
   return EFI_SUCCESS;
 }
