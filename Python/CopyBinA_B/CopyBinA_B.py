@@ -1,26 +1,22 @@
 import io
-import os
 
 File1 = "a.bin"
-File2 = "MM.bin"
+InsertFile = "mod.bin"
 Offset = 0xF20000
 WriteSize = 0xE0000
-OutPutFile = "c.bin"
+OutputFile = "Output.bin"
 
 def main():
     with open(File1, "rb") as f:
-        a_bin = f.read()
+        File1Buf = f.read()
 
-    with open(File2, "rb") as f:
-        b_bin = f.read()
+    with open(InsertFile, "rb") as f:
+        InsertFileBuf = f.read()
 
-    a_bin_size = len(a_bin)
-    b_bin_size = len(b_bin)
+    File1Buf = File1Buf[:Offset] + InsertFileBuf[Offset:Offset+WriteSize] + File1Buf[Offset+WriteSize:]
 
-    a_bin = a_bin[:Offset] + b_bin[Offset:Offset+WriteSize] + a_bin[Offset+WriteSize:]
-
-    with open(OutPutFile, "wb") as f:
-        f.write(a_bin)
+    with open(OutputFile, "wb") as f:
+        f.write(File1Buf)
 
 if __name__ == "__main__":
     main()
