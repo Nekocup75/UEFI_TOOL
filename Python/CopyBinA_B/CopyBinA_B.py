@@ -1,5 +1,3 @@
-import io
-
 File1 = "a.bin"
 InsertFile = "mod.bin"
 Offset = 0xF20000
