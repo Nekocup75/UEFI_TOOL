@@ -53,6 +53,7 @@ class MyWorkStation:
   def find_files(self, fileNmaeInput):
     files = []
     InfFile = []
+
     for root, _, filenames in os.walk(self.root):
       for filename in filenames:
         if filename.startswith(fileNmaeInput):
@@ -100,5 +101,6 @@ if __name__ == '__main__':
     print (index)
     Inf = Data.find_inf (index)
     print('-----------------------')
-    print (Data.find_Lib(Inf[0]))
+    if Inf != []:
+      print (Data.find_Lib(Inf[0]))
     print('-----------------------')
