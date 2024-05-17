@@ -3,7 +3,7 @@
 import os
 
 ModuleName = 'C:/Makefile'
-WorkStation = 'C:/Users/Nekocup/Desktop/edk2'
+WorkStationPath = 'C:/Users/Nekocup/Desktop/edk2'
 
 class MyWorkStation:
   def __init__(self):
@@ -24,8 +24,9 @@ class MyWorkStation:
     # 0 is arrayName
     STATIC_LIBRARY_FILES_Array = STATIC_LIBRARY_FILES.split('\n')
     STATIC_LIBRARY_FILES_Array.remove('STATIC_LIBRARY_FILES =  \\')
-
+    # for library full path
     tmp = []
+    # for clearLibrary
     tmp1 = []
     # STATIC_LIBRARY_FILES_Array.remove('')
     self.libraryArray = STATIC_LIBRARY_FILES_Array
@@ -50,15 +51,15 @@ class MyWorkStation:
   def WorkPath(self, root):
     self.root = root
     
-  def find_files(self, fileNmaeInput):
-    files = []
-    InfFile = []
+  # def find_files(self, fileNmaeInput):
+  #   files = []
+  #   InfFile = []
 
-    for root, _, filenames in os.walk(self.root):
-      for filename in filenames:
-        if filename.startswith(fileNmaeInput):
-          files.append(os.path.join(root, filename).replace('\\','/'))
-    return files
+  #   for root, _, filenames in os.walk(self.root):
+  #     for filename in filenames:
+  #       if filename.startswith(fileNmaeInput):
+  #         files.append(os.path.join(root, filename).replace('\\','/'))
+  #   return files
 
   def find_inf(self, fileNmaeInput):
     InfFile = []
@@ -94,7 +95,7 @@ class MyWorkStation:
 
 if __name__ == '__main__':
   Data = MyWorkStation()
-  Data.WorkPath (WorkStation)
+  Data.WorkPath (WorkStationPath)
 
   
   for index in Data.clearLibrary:
